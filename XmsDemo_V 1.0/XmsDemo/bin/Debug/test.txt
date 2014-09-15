@@ -1,0 +1,3 @@
+<web_service version="1.0">
+  <call destination_uri="sip:test@192.168.0.104" cpa="no" media="audio" signaling="yes" dtmf_mode="rfc2833" async_dtmf="yes" async_tone="yes" rx_delta="+0dB" tx_delta="+0dB" source_uri="sip:testApp@192.168.0.110"/>
+</web_service>

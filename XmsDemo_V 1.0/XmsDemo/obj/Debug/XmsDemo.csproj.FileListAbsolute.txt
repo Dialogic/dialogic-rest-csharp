@@ -1,0 +1,16 @@
+C:\AppNotes\XmsDemo\XmsDemo\bin\Debug\XmsDemo.exe
+C:\AppNotes\XmsDemo\XmsDemo\bin\Debug\XmsDemo.pdb
+C:\AppNotes\XmsDemo\XmsDemo\obj\Debug\ResolveAssemblyReference.cache
+C:\AppNotes\XmsDemo\XmsDemo\obj\Debug\XmsDemo.XmsDemoForm.resources
+C:\AppNotes\XmsDemo\XmsDemo\obj\Debug\XmsDemo.Properties.Resources.resources
+C:\AppNotes\XmsDemo\XmsDemo\obj\Debug\XmsDemo.csproj.GenerateResource.Cache
+C:\AppNotes\XmsDemo\XmsDemo\obj\Debug\XmsDemo.exe
+C:\AppNotes\XmsDemo\XmsDemo\obj\Debug\XmsDemo.pdb
+C:\AppNotes\XmsDemo\XmsDemo_V 1.0\XmsDemo\bin\Debug\XmsDemo.exe
+C:\AppNotes\XmsDemo\XmsDemo_V 1.0\XmsDemo\bin\Debug\XmsDemo.pdb
+C:\AppNotes\XmsDemo\XmsDemo_V 1.0\XmsDemo\obj\Debug\ResolveAssemblyReference.cache
+C:\AppNotes\XmsDemo\XmsDemo_V 1.0\XmsDemo\obj\Debug\XmsDemo.XmsDemoForm.resources
+C:\AppNotes\XmsDemo\XmsDemo_V 1.0\XmsDemo\obj\Debug\XmsDemo.Properties.Resources.resources
+C:\AppNotes\XmsDemo\XmsDemo_V 1.0\XmsDemo\obj\Debug\XmsDemo.csproj.GenerateResource.Cache
+C:\AppNotes\XmsDemo\XmsDemo_V 1.0\XmsDemo\obj\Debug\XmsDemo.exe
+C:\AppNotes\XmsDemo\XmsDemo_V 1.0\XmsDemo\obj\Debug\XmsDemo.pdb

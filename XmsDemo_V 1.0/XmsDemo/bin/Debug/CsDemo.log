@@ -1,0 +1,135 @@
+Request URI: http://192.219.76.226:81/default/eventhandlers?appid=app
+Method: POST
+Headers:
+Accept: application/xml 
+Content-Type: application/xml 
+Host: 192.219.76.226:81 
+Request Payload:
+<?xml version="1.0" encoding="utf-16"?>
+<web_service xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0">
+  <eventhandler>
+    <eventsubscribe />
+  </eventhandler>
+</web_service>
+
+Status code: 201 Created
+Connection: keep-alive 
+Content-Length: 317 
+Content-Type: application/xml 
+Date: Mon, 17 Mar 2014 18:21:58 GMT 
+Location: http://192.219.76.226:81/default/eventhandlers/da77c604-94d5-4bf7-ae35-961f188e9214 
+Server: lighttpd/1.4.28 
+
+
+
+Request URI: http://192.219.76.226:81/default/eventhandlers/da77c604-94d5-4bf7-ae35-961f188e9214?appid=app
+Method: GET
+Headers:
+
+Status code: 200 OKTransfer-Encoding: chunked 
+Content-Type: text/plain 
+Date: Mon, 17 Mar 2014 18:21:59 GMT 
+Server: lighttpd/1.4.28 
+
+<web_service version="1.0"><event type="keepalive"/></web_service>
+Event of type event
+<web_service version="1.0"><event type="incoming" resource_id="4ebc5c4d-ffcd-44d3-865e-72889d7223aa" resource_type="call"><event_data name="called_uri" value="&lt;sip:NN@192.219.76.226&gt;" /><event_data name="caller_uri" value="&lt;sip:192.168.0.102:5060&gt;;tag=26db6e0-0-13c4-50022-16194f-6d988241-16194f" /><event_data name="headers" value="Call-ID:26e91f8-0-13c4-50022-16194f-483da073-16194f&#xD;&#xA;CSeq: 1 INVITE&#xD;&#xA;To: &lt;sip:NN@192.219.76.226&gt;&#xD;&#xA;From: &lt;sip:192.168.0.102:5060&gt;;tag=26db6e0-0-13c4-50022-16194f-6d988241-16194f&#xD;&#xA;Contact: CIpDev demo Class &lt;sip:192.168.0.102:5060&gt;&#xD;&#xA;Content-Type:application/sdp&#xD;&#xA;Content-Length:235&#xD;&#xA;" /><event_data name="headers.CSeq" value="1 INVITE" /><event_data name="headers.Call-ID" value="26e91f8-0-13c4-50022-16194f-483da073-16194f" /><event_data name="headers.Contact" value="CIpDev demo Class &lt;sip:192.168.0.102:5060&gt;" /><event_data name="headers.Content-Length" value="235" /><event_data name="headers.Content-Type" value="application/sdp" /><event_data name="headers.From" value="&lt;sip:192.168.0.102:5060&gt;;tag=26db6e0-0-13c4-50022-16194f-6d988241-16194f" /><event_data name="headers.To" value="&lt;sip:NN@192.219.76.226&gt;" /><event_data name="name" value="app" /><event_data name="uri" value="sip:NN@192.219.76.226" /></event></web_service>
+Event of type event
+Request URI: http://192.219.76.226:81/default/calls/4ebc5c4d-ffcd-44d3-865e-72889d7223aa?appid=app
+Method: PUT
+Headers:
+Accept: application/xml 
+Content-Type: application/xml 
+Host: 192.219.76.226:81 
+Request Payload:
+<?xml version="1.0" encoding="utf-16"?>
+<web_service xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0">
+  <call answer="yes" />
+</web_service>
+
+Status code: 200 OK
+Connection: keep-alive 
+Content-Length: 527 
+Content-Type: application/xml 
+Date: Mon, 17 Mar 2014 18:22:07 GMT 
+Location: http://192.219.76.226:81/default/calls/4ebc5c4d-ffcd-44d3-865e-72889d7223aa 
+Server: lighttpd/1.4.28 
+
+<web_service version="1.0">
+<call_response identifier="4ebc5c4d-ffcd-44d3-865e-72889d7223aa" appid="app" href="http://192.219.76.226:81/default/calls/4ebc5c4d-ffcd-44d3-865e-72889d7223aa"
+ connected="yes" signaling="yes" cpa="no" call_type="inbound"
+ media="audio"
+ dtmf_mode="rfc2833"
+ destination_uri="sip:NN@192.219.76.226"
+ source_uri="sip:192.168.0.102:5060"
+ async_dtmf="no" async_tone="no" cleardigits="no" encryption="none" ice="no" info_ack_mode="automatic" audio="sendrecv">
+</call_response>
+</web_service>
+
+
+Request URI: http://192.219.76.226:81/default/calls/4ebc5c4d-ffcd-44d3-865e-72889d7223aa?appid=app
+Method: PUT
+Headers:
+Accept: application/xml 
+Content-Type: application/xml 
+Host: 192.219.76.226:81 
+Request Payload:
+<?xml version="1.0" encoding="utf-16"?>
+<web_service xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0">
+  <call answer="yes">
+    <call_action>
+      <play repeat="1" delay="2s" skip_interval="0s" terminate_digits="*">
+        <play_source location="file://verification/verification_intro.wav" />
+      </play>
+    </call_action>
+  </call>
+</web_service>
+
+Status code: 200 OK
+Connection: keep-alive 
+Content-Length: 827 
+Content-Type: application/xml 
+Date: Mon, 17 Mar 2014 18:22:07 GMT 
+Location: http://192.219.76.226:81/default/calls/4ebc5c4d-ffcd-44d3-865e-72889d7223aa 
+Server: lighttpd/1.4.28 
+
+<web_service version="1.0">
+<call_response identifier="4ebc5c4d-ffcd-44d3-865e-72889d7223aa" appid="app" href="http://192.219.76.226:81/default/calls/4ebc5c4d-ffcd-44d3-865e-72889d7223aa"
+ connected="yes" signaling="yes" cpa="no" call_type="inbound"
+ media="audio"
+ dtmf_mode="rfc2833"
+ destination_uri="sip:NN@192.219.76.226"
+ source_uri="sip:192.168.0.102:5060"
+ async_dtmf="no" async_tone="no" cleardigits="no" encryption="none" ice="no" info_ack_mode="automatic" audio="sendrecv">
+<call_action>
+<play transaction_id="d2084cd8-15a6-4a36-bb2e-57e0e41eefc5"
+	max_time="infinite"
+	fetch_timeout="300s"
+	offset="0s"
+	delay="2s"
+	repeat="1"
+	skip_interval="0s"
+	terminate_digits="*">
+	<play_source location="file://verification/verification_intro.wav"/>
+</play></call_action>
+</call_response>
+</web_service>
+
+
+<web_service version="1.0"><event type="end_play" resource_id="4ebc5c4d-ffcd-44d3-865e-72889d7223aa" resource_type="call"><event_data name="duration" value="9990" /><event_data name="reason" value="hangup" /><event_data name="transaction_id" value="d2084cd8-15a6-4a36-bb2e-57e0e41eefc5" /></event></web_service>
+Event of type event
+Request URI: http://192.219.76.226:81/default/calls/4ebc5c4d-ffcd-44d3-865e-72889d7223aa?appid=app
+Method: DELETE
+Headers:
+
+ERROR: The remote server returned an error: (404) Not Found.
+<web_service version="1.0"><event type="hangup" resource_id="4ebc5c4d-ffcd-44d3-865e-72889d7223aa" resource_type="call"><event_data name="reason" value="800 Bye" /></event></web_service>
+Event of type event
+ERR: Cannot find call reference to release
+Request URI: http://192.219.76.226:81/default/eventhandlers/da77c604-94d5-4bf7-ae35-961f188e9214?appid=app
+Method: DELETE
+Headers:
+Accept: application/xml 
+Content-Type: application/xml 
+
+
