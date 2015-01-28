@@ -14,6 +14,8 @@ Repository Contents
 ===================
 **XmsDemo_V 1.0** -  the demo currently demonstrates a simple feature set, inbound and outbound calls, playing and recording audio data, but the composition allows for it to be enhanced with more functionality. See README.doc within project for more information. 
 
+**MCSimpleXMSTest** - a simple demonstration of how to control a Dialogic® PowerMedia™ XMS 2.2 server using the RESTful API and a simple C# library. See README_PowerMedia_XMS_RESTful_demo_for_C#.docx within project for more details and step-by-step instructions. 
+
 
 Useful Links
 =============
