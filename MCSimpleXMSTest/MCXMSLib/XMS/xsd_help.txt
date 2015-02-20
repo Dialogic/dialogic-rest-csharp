@@ -1,0 +1,3 @@
+Generate xmsrest.cs with the following command:
+
+xsd.exe xmsrest.xsd /namespace:MCantale.XMS.RESTapi /classes 

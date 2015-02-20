@@ -173,6 +173,15 @@ namespace MCantale.XMS
             return;
          }
 
+         /// Terminate any calls that are in progress...
+         /// 
+         // CallDispatcher<T>.Instance.GetCalls();
+
+         while (CallDispatcher<T>.Instance.Calls.Count > 0)
+         {
+            CallDispatcher<T>.Instance.DeleteCall(CallDispatcher<T>.Instance.Calls[0].ResourceID);
+         }
+
          LoggingSingleton.Instance.Message(LogType.Library, LogLevel.Debug2,
                                            "EventDispatcher::InternalStop : Interrupting InternalRunThread...");
 
@@ -261,11 +270,11 @@ namespace MCantale.XMS
 
          try
          {
-            HttpWebRequest request  = (HttpWebRequest)WebRequest.Create(this._EventHandlerURI);
-            request.Accept          = null;
-            request.ContentType     = null;
-            request.KeepAlive       = true;
-            request.Method          = "GET";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this._EventHandlerURI);
+            request.Accept = null;
+            request.ContentType = null;
+            request.KeepAlive = true;
+            request.Method = "GET";
             request.ProtocolVersion = HttpVersion.Version11;
 
             LoggingSingleton.Instance.Message(LogType.Library, LogLevel.Debug2,
@@ -296,11 +305,30 @@ namespace MCantale.XMS
 
                      if (bufferLength > 0)
                      {
-                        char[] buffer = new char[bufferLength];
-                        stream.Read(buffer, 0, bufferLength);
+                        /// MC : Thu Feb 19 10:52:00 GMT 2015
+                        /// 
+                        /// Note that there was a pretty serious bug / omission in the following section whereby I had assumed that
+                        /// stream.Read(...) would always return the whole data chunk. This is not the case. Sometimes (seemingly 
+                        /// when the data spans two TCP packets) stream.Read(...) returns LESS than "bufferLength" chars and we are
+                        /// required to keep calling the function until we have ALL of the data. Failure to do this will cause an
+                        /// exception when attempting to cast the data to a RESTapi.web_service object.
+                        /// 
+                        char[] buffer  = new char[bufferLength + 1];
+                        int readLength = 0;
+                        int count      = 0;
+
+                        while (readLength < bufferLength)
+                        {
+                           readLength += stream.Read(buffer, readLength, bufferLength - readLength);
+                           count++;
+                        }
+
+                        LoggingSingleton.Instance.Message(LogType.Library, LogLevel.Debug2,
+                                                          "EventDispatcher::InternalProcessEventsThread : Read {0} bytes from stream [{1} read{2}]",
+                                                          readLength, count, count == 1 ? "" : "s");
 
                         /// Cast the data to a web service event...
-                        /// 
+                        ///
                         RESTapi.web_service ws = RestHelpers.XMLToRESTapi(new String(buffer), typeof(RESTapi.web_service)) as RESTapi.web_service;
 
                         if (ws != null)
@@ -335,6 +363,12 @@ namespace MCantale.XMS
                                                  "EventDispatcher::InternalProcessEventsThread : {0}\n{1}",
                                                  ex.Message.ToString(), ex.StackTrace.ToString());
             }
+         }
+         catch (ThreadInterruptedException ex)
+         {
+            LoggingSingleton.Instance.Message(LogType.Library, LogLevel.Warning,
+                                              "EventDispatcher::InternalProcessEventsThread : {0}\n{1}",
+                                              ex.Message.ToString(), ex.StackTrace.ToString());
          }
          catch (Exception ex)
          {
@@ -460,6 +494,12 @@ namespace MCantale.XMS
                         /// 
                         this._OID             = item.identifier;
                         this._EventHandlerURI = String.Format("{0}?appid={1}", item.href, RestSettings.Instance.AppID);
+
+                        if (!this._EventHandlerURI.Contains("http://"))
+                        {
+                           this._EventHandlerURI = String.Format("http://{0}:{1}{2}?appid={3}",
+                                                                 RestSettings.Instance.ServerIP, RestSettings.Instance.ServerPort, item.href, RestSettings.Instance.AppID);
+                        }
 
                         LoggingSingleton.Instance.Message(LogType.Library, LogLevel.Debug2, 
                                                             "EventDispatcher::ConnectToEventHandler : EventHandler URI is \"{0}\", OID is \"{1}\"",
@@ -664,7 +704,7 @@ namespace MCantale.XMS
                               retval.Add(new EventDispatcher<T>()
                               {
                                  _OID             = ev.identifier,
-                                 _EventHandlerURI = String.Format("{0}?appid={1}", ev.href, ev.appid),
+                                 _EventHandlerURI = ev.href.Contains("http://") ? String.Format("{0}?appid={1}", ev.href, ev.appid) : String.Format("http://{0}:{1}{2}?appid={3}", RestSettings.Instance.ServerIP, RestSettings.Instance.ServerPort, ev.href, ev.appid),
                                  _ConnectionState = ConnectionStateEnum.Connected,
                               });
                            }

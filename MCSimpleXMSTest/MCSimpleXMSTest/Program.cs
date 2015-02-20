@@ -16,6 +16,13 @@ namespace MCSimpleXMSTest
                   "file://verification/video_clip_nascar.vid");
       }
 
+      protected override void OnDtmf()
+      {
+         LoggingSingleton.Instance.Message(LogType.Application, LogLevel.Info, 
+                                           "MyCall::OnDtmf : \"{0}\" pressed!",
+                                           this._LastEventData["digits"].ToString());
+      }
+
       protected override void OnEndPlay()
       {
          foreach (KeyValuePair<string, string> item in this._LastEventData)
@@ -31,7 +38,8 @@ namespace MCSimpleXMSTest
 
       protected override void OnIncoming()
       {
-         AcceptCall();
+         // AcceptCall();
+         AnswerCall();
       }
 
       protected override void OnRinging()
@@ -78,6 +86,11 @@ namespace MCSimpleXMSTest
 
             switch (info.KeyChar)
             {
+               case 'g':
+               case 'G':
+                  CallDispatcher<MyCall>.Instance.GetCalls();
+                  break;
+
                case 'x':
                case 'X':
                   needExit = true;

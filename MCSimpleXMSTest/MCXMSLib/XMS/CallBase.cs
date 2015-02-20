@@ -117,16 +117,26 @@ namespace MCantale.XMS
 
       protected virtual void AcceptCall(bool EarlyMedia = true, RESTapi.media_type MediaType = RESTapi.media_type.audiovideo)
       {
+         /// <call accept="yes" early_media="yes" media="audiovideo" signaling="yes" dtmf_mode="rfc2833"
+         ///       async_dtmf="yes" async_tone="yes" rx_delta="+0dB" tx_delta="+0dB" cpa="no" info_ack_mode="automatic"/>
+         /// 
          RESTapi.web_service ws = new RESTapi.web_service()
          {
             Item = new RESTapi.call()
             {
-               accept               = RESTapi.boolean_type.yes,
-               acceptSpecified      = true,
-               early_media          = EarlyMedia ? RESTapi.boolean_type.yes : RESTapi.boolean_type.no,
-               early_mediaSpecified = true,
-               media                = MediaType,
-               mediaSpecified       = true,
+               accept                 = RESTapi.boolean_type.yes,
+               acceptSpecified        = true,
+               early_media            = EarlyMedia ? RESTapi.boolean_type.yes : RESTapi.boolean_type.no,
+               early_mediaSpecified   = true,
+               media                  = MediaType,
+               mediaSpecified         = true,
+               dtmf_mode              = RESTapi.dtmf_mode_option.rfc2833,
+               async_dtmf             = RESTapi.boolean_type.yes,
+               async_dtmfSpecified    = true,
+               async_tone             = RESTapi.boolean_type.yes,
+               async_toneSpecified    = true,
+               info_ack_mode          = RESTapi.ack_mode_option.automatic,
+               info_ack_modeSpecified = true,
             }
          };
 
@@ -148,6 +158,10 @@ namespace MCantale.XMS
 
       protected virtual void AnswerCall(RESTapi.media_type MediaType = RESTapi.media_type.audiovideo, bool AsyncCompletion = true)
       {
+         /// <call answer="yes" media="audiovideo" signaling="yes" dtmf_mode="rfc2833" async_completion="yes"
+         ///       async_dtmf="yes" async_tone="yes" rx_delta="+0dB" tx_delta="+0dB" cpa="no" info_ack_mode="automatic"/>
+         ///
+
          RESTapi.web_service ws = new RESTapi.web_service()
          {
             Item = new RESTapi.call()
@@ -158,6 +172,13 @@ namespace MCantale.XMS
                async_completionSpecified = true,
                media                     = MediaType,
                mediaSpecified            = true,
+               dtmf_mode                 = RESTapi.dtmf_mode_option.rfc2833,
+               async_dtmf                = RESTapi.boolean_type.yes,
+               async_dtmfSpecified       = true,
+               async_tone                = RESTapi.boolean_type.yes,
+               async_toneSpecified       = true,
+               info_ack_mode             = RESTapi.ack_mode_option.automatic,
+               info_ack_modeSpecified    = true,
             }
          };
 
@@ -284,6 +305,10 @@ namespace MCantale.XMS
       {
       }
 
+      protected virtual void OnDtmf()
+      {
+      }
+
       protected virtual void OnEndPlay()
       {
       }
@@ -363,6 +388,10 @@ namespace MCantale.XMS
 
             case RESTapi.event_type.alarm:
                OnAlarm();
+               break;
+
+            case RESTapi.event_type.dtmf:
+               OnDtmf();
                break;
 
             case RESTapi.event_type.end_play:
