@@ -56,7 +56,7 @@ namespace XmsDemo
                     try
                     {
                         l_call = m_callTable[a_event.resource_id];
-                        l_call.Drop();
+                      //  l_call.Drop();
                         m_callTable.Remove(a_event.resource_id);
                     }
                     catch (KeyNotFoundException)

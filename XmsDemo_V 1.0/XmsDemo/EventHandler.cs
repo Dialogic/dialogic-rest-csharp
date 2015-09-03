@@ -285,7 +285,7 @@ namespace XmsDemo
 
                     //
 
-                    line = l_evtStream.ReadLine(); // skipping unreadable
+ /*                   line = l_evtStream.ReadLine(); // skipping unreadable
 
                     line = l_evtStream.ReadLine(); // reading event length
 
@@ -312,6 +312,20 @@ namespace XmsDemo
                         sBuf += l_evtStream.ReadLine();
 
                     }
+  * */
+                    string sBuf = "";
+                    line = l_evtStream.ReadLine();
+                    int bufLength = Int32.Parse(line, NumberStyles.AllowHexSpecifier);
+                    if (bufLength > 0)
+                    {
+                        char[] cBuf = new char[bufLength];
+                        int readBufLength = 0;
+                        while (bufLength - readBufLength > 0)
+                        {
+                            readBufLength += l_evtStream.ReadBlock(cBuf, readBufLength, bufLength - readBufLength);
+                        }
+                        sBuf = new String(cBuf);
+                    }
 
                     Logger.Log(sBuf, false);
 
@@ -322,9 +336,7 @@ namespace XmsDemo
                     // 
 
                     if (sBuf.Length > 0) // not to pass empty payload
-
                         ProcessEvent(sBuf);
-
 
                 }
 
@@ -338,7 +350,6 @@ namespace XmsDemo
         private static void ProcessEvent(string a_xmlString)
         {
             XmlReader reader = XmlReader.Create(new StringReader(a_xmlString));
-
             web_service l_ws = new web_service();
             try
             {
